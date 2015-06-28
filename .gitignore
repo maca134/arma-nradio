@@ -1,0 +1,8 @@
+.hg*
+build/nant-0.92/*
+build/release/*
+build/app/*
+src/packages/*
+src/nRadio/bin/*
+src/nRadio/obj/*
+build/*
