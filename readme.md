@@ -3,6 +3,10 @@
 nRadio is a small mod for ARMA that allows clients to listen to internet radio mp3 streams. The mod includes a set of simple functions to interact with the extension and a basic "radio" dialog.
 Here is a small video of an earlier version: https://www.youtube.com/watch?v=SUQZwLJ8pTc
 
+#### Adding Stations To The Dialog
+
+If you take a look [here](https://github.com/maca134/arma-nradio/blob/master/sqf/nradio.hpp#L1), this is how the radio stations are defined. If you include the `nRadio` class in the mission's description.ext, the dialog will display those stations instead.
+
 ### Functions
 ##### Core
 Get status (STOP, WAITING, PLAYING):
@@ -28,3 +32,7 @@ Open the built-in dialog
 ### Contributor
 - Maca134
 - BenR
+
+### Donate ###
+
+If you like this app and use it, please consider donating via [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=95G5FZ8PSW63W) or becoming a [Patreon](https://www.patreon.com/maca134).
