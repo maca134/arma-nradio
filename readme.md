@@ -12,6 +12,9 @@ If you take a look [here](https://github.com/maca134/arma-nradio/blob/master/sqf
 Get status (STOP, WAITING, PLAYING):
 `[] call NRD_fnc_status`
 
+Gets current song (if available):
+`[] call NRD_fnc_song`
+
 Plays a stream:
 `['URL'] call NRD_fnc_play`
 

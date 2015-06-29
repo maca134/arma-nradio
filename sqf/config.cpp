@@ -15,6 +15,7 @@ class CfgFunctions {
 			class play {};
 			class stop {};
 			class volume {};
+			class song {};
 		};
 		class Dialog {
 			file = "\x\addons\a3_nradio\compile\dialog";

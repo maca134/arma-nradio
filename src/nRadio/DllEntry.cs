@@ -88,9 +88,17 @@ namespace nRadio
                 case "STATUS":
                     response = GetStatus();
                     break;
+                case "SONG":
+                    response = GetSong();
+                    break;
             }
 
             return response;
+        }
+
+        private string GetSong()
+        {
+            return (radio.CurrentSong != null) ? String.Format("{0} - {1}", radio.CurrentSong.Artist, radio.CurrentSong.Title) : "";
         }
 
         private void Play(string data)
@@ -115,6 +123,7 @@ namespace nRadio
         void radio_OnStreamUpdate(object sender, StreamUpdateEventArgs e)
         {
             status = Status.PLAYING;
+            
             audio.OnStreamUpdate(sender, e);
         }
 

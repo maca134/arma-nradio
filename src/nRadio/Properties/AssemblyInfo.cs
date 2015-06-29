@@ -15,6 +15,6 @@ using System.Reflection;
 [assembly: AssemblyCompanyAttribute("Maca134")]
 [assembly: AssemblyProductAttribute("nRadio")]
 [assembly: AssemblyCopyrightAttribute("Copyright 2015")]
-[assembly: AssemblyVersionAttribute("0.0.0.1")]
-[assembly: AssemblyFileVersionAttribute("0.0.0.1")]
+[assembly: AssemblyVersionAttribute("0.0.0.2")]
+[assembly: AssemblyFileVersionAttribute("0.0.0.2")]
 
