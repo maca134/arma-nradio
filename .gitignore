@@ -6,3 +6,5 @@ src/packages/*
 src/nRadio/bin/*
 src/nRadio/obj/*
 build/*
+src/TestConsole/obj/*
+src/TestConsole/bin/*
