@@ -3,7 +3,8 @@ _display = findDisplay 23974;
 _list = _display displayCtrl 13410;
 lbClear _list;
 
-_stations = configFile >> 'nRadio'; /* Get preset radio stations from mission file */
+/* Get preset radio stations from mission file */
+_stations = if (isClass (missionConfigFile >> 'nRadio')) then {missionConfigFile >> 'nRadio'} else {configFile >> 'nRadio'}; 
 for "_i" from 0 to count _stations -1 do {
 	private ['_station','_name','_url','_index'];
 	_station = _stations select _i;
