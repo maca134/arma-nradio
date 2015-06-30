@@ -5,7 +5,7 @@ if (isNil 'MRADIO_VOLUME') then {
 };
 createDialog 'NRD_Main'; /* Create the dialog */
 
-_display = findDisplay 1344;
+_display = findDisplay 23974;
 _list = _display displayCtrl 13410;
 _volume = _display displayCtrl 13412;
 _volume sliderSetRange [0, 100];
