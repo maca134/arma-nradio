@@ -30,7 +30,7 @@ namespace nRadio
 
         private Radio radio;
         private Audio audio;
-        private float volume = 100;
+        private float volume = 50;
         private VolumeWaveProvider16 volumeProvider;
 
         private Task fadingTask;
@@ -82,9 +82,6 @@ namespace nRadio
                 case "VOLUME":
                     Volume(data);
                     break;
-                case "FADEVOLUME":
-                    FadeVolume(data);
-                    break;
                 case "STATUS":
                     response = GetStatus();
                     break;
@@ -123,105 +120,55 @@ namespace nRadio
         void radio_OnStreamUpdate(object sender, StreamUpdateEventArgs e)
         {
             status = Status.PLAYING;
-            
+
             audio.OnStreamUpdate(sender, e);
         }
 
         IWaveProvider audio_onWaveProviderCreated(IWaveProvider provider)
         {
-            volumeProvider = new VolumeWaveProvider16(provider) {Volume = volume/100};
+            volumeProvider = new VolumeWaveProvider16(provider) { Volume = volume / 100 };
             return volumeProvider;
         }
 
         private void Stop()
         {
             Console.WriteLine("Stopping");
-            status = Status.STOP;
-            try
+            Task.Factory.StartNew(() =>
             {
-                radio.Dispose();
-                audio.Dispose();
-            }
-            catch
-            {
-                // ignored
-            }
+                status = Status.STOP;
+                try
+                {
+                    radio.Dispose();
+                    audio.Dispose();
+                }
+                catch
+                {
+                    // ignored
+                }
+            });
         }
 
         private void Volume(string data)
         {
-            if (!isPlaying)
-                return;
             try
             {
-                var vol = ParseInt(data, 0, 100);
-                if (vol == volumeProvider.Volume)
-                    return;
-                volume = vol;
-                volumeProvider.Volume = vol / (float)100;
+                volume = ParseInt(data, 0, 100);
             }
-            catch
+            catch (Exception ex)
             {
-                // ignored
-            }
-        }
-
-        private void FadeVolume(string data)
-        {
-            if (!isPlaying)
+                Console.WriteLine("ERROR PARSING VOLUME - " + ex.Message);
                 return;
-            int vol;
+            }
+
+            if (!isPlaying) return;
             try
             {
-                vol = ParseInt(data, 0, 100);
+                volumeProvider.Volume = volume / 100;
             }
-            catch
+            catch (Exception ex)
             {
-                return;
+                Console.WriteLine("ERROR SETTING VOLUME - " + ex.Message);
             }
-            if (vol == volumeProvider.Volume)
-                return;
-
-
-            volume = vol;
-            if (fadingTask != null)
-            {
-                if (!fadingTask.IsCompleted)
-                {
-                    cancelFading = true;
-                    Console.WriteLine("Waiting for previous fading task to cancel");
-                    fadingTask.Wait();
-                }
-            }
-            cancelFading = false;
-            fadingTask = Task.Factory.StartNew(() =>
-            {
-                var tvol = vol / (float)100;
-                Console.WriteLine("Fading too {0}", tvol);
-                if (tvol > volumeProvider.Volume)
-                {
-                    while (tvol > volumeProvider.Volume)
-                    {
-                        if (cancelFading)
-                            break;
-                        volume = vol;
-                        volumeProvider.Volume = volumeProvider.Volume + 0.1f;
-                        Thread.Sleep(250);
-                    }
-                }
-                else
-                {
-                    while (tvol < volumeProvider.Volume)
-                    {
-                        if (cancelFading)
-                            break;
-                        volume = vol;
-                        volumeProvider.Volume = volumeProvider.Volume - 0.1f;
-                        Thread.Sleep(250);
-                    }
-                }
-                Console.WriteLine("Fading complete");
-            });
         }
 
         public int ParseInt(string str, int min, int max)
