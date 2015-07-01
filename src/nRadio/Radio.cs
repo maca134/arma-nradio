@@ -93,7 +93,7 @@ namespace nRadio
                         var metaInt = Convert.ToInt32(response.GetResponseHeader("icy-metaint"));
                         using (var socketStream = response.GetResponseStream())
                         {
-                            var buffer = new byte[16384];
+                            var buffer = new byte[32768];
                             var metadataLength = 0;
                             var streamPosition = 0;
                             var bufferPosition = 0;
