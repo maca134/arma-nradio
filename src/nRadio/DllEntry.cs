@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -133,9 +133,9 @@ namespace nRadio
         private void Stop()
         {
             Console.WriteLine("Stopping");
+            status = Status.STOP;
             Task.Factory.StartNew(() =>
             {
-                status = Status.STOP;
                 try
                 {
                     radio.Dispose();
