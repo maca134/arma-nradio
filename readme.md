@@ -1,5 +1,7 @@
 # nRadio - [Downloads](https://github.com/maca134/arma-nradio/releases)
 
+## Project abandoned due to lack of help/contributions...
+
 nRadio is a small mod for ARMA that allows clients to listen to internet radio mp3 streams. The mod includes a set of simple functions to interact with the extension and a basic "radio" dialog.
 Here is a small video of an earlier version: https://www.youtube.com/watch?v=SUQZwLJ8pTc
 
